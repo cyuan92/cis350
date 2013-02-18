@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cis350</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="user_nav">
+  <% if current_patient %>
+  Logged in as <%= current_patient.email %>.
+  <%= link_to "Log out", patient_log_out_path %>
+  <% elsif current_therapist %>
+  Logged in as <%= current_therapist.email %>.
+  <%= link_to "Log out", therapist_log_out_path %>
+  <% else %>
+  <%= link_to "Sign up as patient", patient_sign_up_path %> |
+  <%= link_to "Log in as patient", patient_log_in_path %> |
+  <%= link_to "Sign up as therapist", therapist_sign_up_path %> |
+  <%= link_to "Log in as therapist", therapist_log_in_path %>
+  <% end %>
+
+</div>
+<% flash.each do |name, msg| %>
+<%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>
